@@ -2,6 +2,7 @@ import turtle
 import winsound
 
 from paddle import Paddle
+from ball import Ball
 
 wn = turtle.Screen()
 wn.title("Pong")
@@ -20,14 +21,7 @@ paddle_a = Paddle(-350, 0)
 paddle_b = Paddle(350, 0)
 
 # Ball
-ball = turtle.Turtle()
-ball.speed(0)
-ball.shape("square")
-ball.color("white")
-ball.penup()
-ball.goto(0, 0)
-ball.dx = 0.2
-ball.dy = 0.2
+ball = Ball()
 
 # Pen
 pen = turtle.Turtle()
@@ -51,21 +45,12 @@ while True:
 	wn.update()
 	
 	# Move the ball
-	ball.setx(ball.xcor() + ball.dx)
-	ball.sety(ball.ycor() + ball.dy)
+	ball.move()
 
 	# Border checking
 
 	# Top and bottom
-	if ball.ycor() > 290:
-		ball.sety(290)
-		ball.dy *= -1
-		winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
-	
-	elif ball.ycor() < -290:
-		ball.sety(-290)
-		ball.dy *= -1
-		winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
+	ball.check_horizontal_borders()
 
 	# Left and right
 	if ball.xcor() > 350:
