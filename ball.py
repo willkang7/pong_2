@@ -1,5 +1,6 @@
 from turtle import Turtle
 import winsound
+import time
 
 class Ball(Turtle):
 	"""A model of a ball."""
@@ -12,8 +13,8 @@ class Ball(Turtle):
 		self.color("white")
 		self.penup()
 		self.goto(0, 0)
-		self.dx = 0.2
-		self.dy = 0.2
+		self.dx = 2
+		self.dy = 2
 
 	def move(self):
 		"""Move the ball."""
@@ -35,3 +36,4 @@ class Ball(Turtle):
 		"""Reset the ball to the center."""
 		self.goto(0, 0)
 		self.dx *= -1
+		time.sleep(1)
