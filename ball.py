@@ -30,3 +30,8 @@ class Ball(Turtle):
 			self.sety(-290)
 			self.dy *= -1
 			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
+
+	def reset(self):
+		"""Reset the ball to the center."""
+		self.goto(0, 0)
+		self.dx *= -1
