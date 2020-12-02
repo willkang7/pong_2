@@ -25,20 +25,30 @@ class Pong:
 
 		# Keyboard bindings
 		self.screen.listen()
-		self.screen.onkeypress(self.paddle_a.move_up, 'w')
-		self.screen.onkeypress(self.paddle_a.move_down, 's')
-		self.screen.onkeypress(self.paddle_b.move_up, 'Up')
-		self.screen.onkeypress(self.paddle_b.move_down, 'Down')
+		self.screen.onkeypress(self.paddle_a.start_move_up, 'w')
+		self.screen.onkeypress(self.paddle_a.start_move_down, 's')
+		self.screen.onkeyrelease(self.paddle_a.stop_move_up, 'w')
+		self.screen.onkeyrelease(self.paddle_a.stop_move_down, 's')
+		self.screen.onkeypress(self.paddle_b.start_move_up, 'Up')
+		self.screen.onkeypress(self.paddle_b.start_move_down, 'Down')
+		self.screen.onkeyrelease(self.paddle_b.stop_move_up, 'Up')
+		self.screen.onkeyrelease(self.paddle_b.stop_move_down, 'Down')
 
 	def run_game(self):
 		"""Start the main loop for the game."""
 		while True:
-			self.screen.update()
+			self._update_paddles()
 			self._update_ball()
 			self._check_score()
 			self._check_paddle_ball_collision()
+			self.screen.update()
 			time.sleep(1/120)
 
+	def _update_paddles(self):
+		"""Update the positions of the paddles."""
+		self.paddle_a.update()
+		self.paddle_b.update()
+	
 	def _update_ball(self):
 		"""Update the position of the ball."""
 		self.ball.move()

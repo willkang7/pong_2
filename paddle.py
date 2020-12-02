@@ -12,13 +12,31 @@ class Paddle(Turtle):
 		self.shapesize(stretch_wid=5,stretch_len=1)
 		self.penup()
 		self.goto(x, y)
+		self.moving_up = False
+		self.moving_down = False
+		self.speed = 2
 
-	def move_up(self):
+	def update(self):
+		"""Move the paddle based on the movement flags."""
+		if self.moving_up and self.ycor() < 300:
+			y = self.ycor() + self.speed
+			self.sety(y)
+		if self.moving_down and self.ycor() > -300:
+			y = self.ycor() - self.speed
+			self.sety(y)
+
+	def start_move_up(self):
 		"""Move the paddle up."""
-		y = self.ycor() + 20
-		self.sety(y)
+		self.moving_up = True
 
-	def move_down(self):
+	def start_move_down(self):
 		"""Move the paddle down."""
-		y = self.ycor() - 20
-		self.sety(y)
+		self.moving_down = True
+
+	def stop_move_up(self):
+		"""Stop moving the paddle up."""
+		self.moving_up = False
+
+	def stop_move_down(self):
+		"""Stop moving the paddle down."""
+		self.moving_down = False
