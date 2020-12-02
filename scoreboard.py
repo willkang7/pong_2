@@ -12,8 +12,7 @@ class Scoreboard(Turtle):
 		self.penup()
 		self.hideturtle()
 		self.goto(0, 260)
-		self.write("Player A: 0  Player B: 0", align="center",
-			font=("Courier", 24, "normal"))
+		self.write("0  0", align="center", font=("Courier", 24, "normal"))
 		self.score_a = 0
 		self.score_b = 0
 
@@ -30,5 +29,5 @@ class Scoreboard(Turtle):
 	def _update_score(self):
 		"""Update score on screen."""
 		self.clear()
-		self.write("Player A: {}  Player B: {}".format(self.score_a,
-			self.score_b), align="center", font=("Courier", 24, "normal"))
+		self.write("{}  {}".format(self.score_a, self.score_b),
+			align="center", font=("Courier", 24, "normal"))
