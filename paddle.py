@@ -14,7 +14,7 @@ class Paddle(Turtle):
 		self.goto(x, y)
 		self.moving_up = False
 		self.moving_down = False
-		self.speed = 2
+		self.speed = 3
 
 	def update(self):
 		"""Move the paddle based on the movement flags."""
