@@ -1,5 +1,4 @@
 from turtle import Turtle
-import time
 
 class Ball(Turtle):
 	"""A model of a ball."""
@@ -36,4 +35,3 @@ class Ball(Turtle):
 		"""Reset the ball to the center."""
 		self.goto(0, 0)
 		self.dx *= -1
-		time.sleep(2)

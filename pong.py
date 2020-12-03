@@ -76,9 +76,13 @@ class Pong:
 		if self.ball.xcor() > 410:
 			self.sb.increment_a()
 			self.ball.reset()
+			winsound.PlaySound("sounds/point_scored.wav", winsound.SND_ASYNC)
+			time.sleep(1)
 		elif self.ball.xcor() < -410:
 			self.sb.increment_b()
 			self.ball.reset()
+			winsound.PlaySound("sounds/point_scored.wav", winsound.SND_ASYNC)
+			time.sleep(1)
 
 
 if __name__ == '__main__':
