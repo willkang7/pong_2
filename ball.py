@@ -1,5 +1,4 @@
 from turtle import Turtle
-import winsound
 import time
 
 class Ball(Turtle):
@@ -26,14 +25,15 @@ class Ball(Turtle):
 		if self.ycor() > 290:
 			self.sety(290)
 			self.dy *= -1
-			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
+			return True
 		elif self.ycor() < -290:
 			self.sety(-290)
 			self.dy *= -1
-			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
+			return True
+		return False
 
 	def reset(self):
 		"""Reset the ball to the center."""
 		self.goto(0, 0)
 		self.dx *= -1
-		time.sleep(1)
+		time.sleep(2)

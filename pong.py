@@ -39,8 +39,8 @@ class Pong:
 		while True:
 			self._update_paddles()
 			self._update_ball()
-			self._check_score()
 			self._check_paddle_ball_collision()
+			self._check_score()
 			self.screen.update()
 			time.sleep(1/120)
 
@@ -52,8 +52,25 @@ class Pong:
 	def _update_ball(self):
 		"""Update the position of the ball."""
 		self.ball.move()
-		self.ball.check_horizontal_borders()
+		hit_border = self.ball.check_horizontal_borders()
+		if hit_border:
+			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
 
+	def _check_paddle_ball_collision(self):
+		"""Check if a paddle and ball collided."""
+		if (self.ball.xcor() < -340 and
+			self.ball.xcor() > -350 and
+			self.ball.ycor() < self.paddle_a.ycor() + 50 and
+			self.ball.ycor() > self.paddle_a.ycor() - 50):
+			self.ball.dx *= -1
+			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
+		elif (self.ball.xcor() > 340 and
+			self.ball.xcor() < 350 and
+			self.ball.ycor() < self.paddle_b.ycor() + 50 and
+			self.ball.ycor() > self.paddle_b.ycor() - 50):
+			self.ball.dx *= -1
+			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
+	
 	def _check_score(self):
 		"""Check if a player scored."""
 		if self.ball.xcor() > 410:
@@ -62,21 +79,6 @@ class Pong:
 		elif self.ball.xcor() < -410:
 			self.sb.increment_b()
 			self.ball.reset()
-
-	def _check_paddle_ball_collision(self):
-		"""Check if a paddle and ball collided."""
-		if (self.ball.xcor() < -340 and
-			self.ball.xcor() > -350 and
-			self.ball.ycor() < self.paddle_a.ycor() + 50 and
-			self.ball.ycor() > self.paddle_a.ycor() - 50):
-			self.ball.dx *= -1 
-			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
-		elif (self.ball.xcor() > 340 and
-			self.ball.xcor() < 350 and
-			self.ball.ycor() < self.paddle_b.ycor() + 50 and
-			self.ball.ycor() > self.paddle_b.ycor() - 50):
-			self.ball.dx *= -1
-			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
 
 
 if __name__ == '__main__':
