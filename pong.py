@@ -75,15 +75,19 @@ class Pong:
 		"""Check if a player scored."""
 		if self.ball.xcor() > 410:
 			self.sb.increment_a()
-			self.ball.reset()
-			winsound.PlaySound("sounds/point_scored.wav", winsound.SND_ASYNC)
-			time.sleep(1)
 		elif self.ball.xcor() < -410:
 			self.sb.increment_b()
-			self.ball.reset()
+		else:
+			return False
+		
+		# Reset the ball only if a player scored.
+		print(self.sb.get_consecutive_points())
+		self.ball.reset()
+		if self.sb.get_consecutive_points() > 2:
+			winsound.PlaySound("sounds/dominating.wav", winsound.SND_ASYNC)
+		else:
 			winsound.PlaySound("sounds/point_scored.wav", winsound.SND_ASYNC)
-			time.sleep(1)
-
+		time.sleep(1)
 
 if __name__ == '__main__':
 	pong = Pong()
