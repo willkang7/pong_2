@@ -89,6 +89,7 @@ class Pong:
 			winsound.PlaySound("sounds/point_scored.wav", winsound.SND_ASYNC)
 		time.sleep(1)
 
+
 if __name__ == '__main__':
 	pong = Pong()
 	pong.run_game()
