@@ -5,6 +5,7 @@ import time
 from paddle import Paddle
 from ball import Ball
 from scoreboard import Scoreboard
+from announcer import Announcer
 
 class Pong:
 	"""Overall class to manage game assets and behavior."""
@@ -19,6 +20,7 @@ class Pong:
 
 		# Game assets
 		self.sb = Scoreboard()
+		self.announcer = Announcer()
 		self.paddle_a = Paddle(-350, 0)
 		self.paddle_b = Paddle(350, 0)
 		self.ball = Ball()
@@ -80,14 +82,20 @@ class Pong:
 		else:
 			return False
 		
-		# Reset the ball only if a player scored.
-		print(self.sb.get_consecutive_points())
+		# Reset round only if a player scored.
+		self._reset_round()
+
+	def _reset_round(self):
+		"""Announce point and reset position for next round."""
 		self.ball.reset()
 		if self.sb.get_consecutive_points() > 2:
 			winsound.PlaySound("sounds/dominating.wav", winsound.SND_ASYNC)
+			self.announcer.announce_dominating()
 		else:
 			winsound.PlaySound("sounds/point_scored.wav", winsound.SND_ASYNC)
+			self.announcer.announce_point()
 		time.sleep(1)
+		self.announcer.clear_announcement()
 
 
 if __name__ == '__main__':
