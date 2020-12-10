@@ -40,3 +40,7 @@ class Paddle(Turtle):
 	def stop_move_down(self):
 		"""Stop moving the paddle down."""
 		self.moving_down = False
+
+	def reset(self):
+		"""Reset the position back to the middle."""
+		self.sety(0)

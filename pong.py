@@ -86,8 +86,7 @@ class Pong:
 		self._reset_round()
 
 	def _reset_round(self):
-		"""Announce point and reset position for next round."""
-		self.ball.reset()
+		"""Announce point and reset positions."""
 		if self.sb.get_consecutive_points() > 2:
 			winsound.PlaySound("sounds/dominating.wav", winsound.SND_ASYNC)
 			self.announcer.announce_dominating()
@@ -95,7 +94,12 @@ class Pong:
 			winsound.PlaySound("sounds/point_scored.wav", winsound.SND_ASYNC)
 			self.announcer.announce_point()
 		time.sleep(1)
+
+		# Get ready for next round.
 		self.announcer.clear_announcement()
+		self.ball.reset()
+		self.paddle_a.reset()
+		self.paddle_b.reset()
 
 
 if __name__ == '__main__':
