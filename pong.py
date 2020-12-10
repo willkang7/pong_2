@@ -66,12 +66,14 @@ class Pong:
 			self.ball.ycor() > self.paddle_a.ycor() - 50):
 			self.ball.dx *= -1
 			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
+			self.ball.increase_speed()
 		elif (self.ball.xcor() > 340 and
 			self.ball.xcor() < 350 and
 			self.ball.ycor() < self.paddle_b.ycor() + 50 and
 			self.ball.ycor() > self.paddle_b.ycor() - 50):
 			self.ball.dx *= -1
 			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
+			self.ball.increase_speed()
 	
 	def _check_score(self):
 		"""Check if a player scored."""
@@ -97,7 +99,8 @@ class Pong:
 
 		# Get ready for next round.
 		self.announcer.clear_announcement()
-		self.ball.reset()
+		self.ball.reset_position()
+		self.ball.reset_speed()
 		self.paddle_a.reset()
 		self.paddle_b.reset()
 

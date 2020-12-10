@@ -31,7 +31,17 @@ class Ball(Turtle):
 			return True
 		return False
 
-	def reset(self):
+	def reset_position(self):
 		"""Reset the ball to the center."""
 		self.goto(0, 0)
 		self.dx *= -1
+
+	def increase_speed(self):
+		"""Increase ball speed."""
+		self.dx *= 1.1
+		self.dy *= 1.1
+
+	def reset_speed(self):
+		"""Reset ball speed."""
+		self.dx = 2
+		self.dy = 2
