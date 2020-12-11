@@ -15,6 +15,9 @@ class Paddle(Turtle):
 		self.moving_up = False
 		self.moving_down = False
 		self.speed = 3
+		self.hitbox = 50
+		self.specials_left = 3
+		self.is_long = False
 
 	def update(self):
 		"""Move the paddle based on the movement flags."""
@@ -42,5 +45,25 @@ class Paddle(Turtle):
 		self.moving_down = False
 
 	def reset(self):
-		"""Reset the position back to the middle."""
+		"""Reset the position and specials."""
 		self.sety(0)
+		self.end_long()
+		self.specials_left = 3
+
+	def get_hitbox(self):
+		"""Return the hitbox value."""
+		return self.hitbox
+
+	def start_long(self):
+		"""Lengthen the board."""
+		if self.specials_left > 0 and self.is_long == False:
+			self.is_long = True
+			self.shapesize(stretch_wid=10, stretch_len=1)
+			self.hitbox = 100
+			self.specials_left -= 1
+
+	def end_long(self):
+		"""Shorten the board."""
+		self.is_long = False
+		self.shapesize(stretch_wid=5, stretch_len=1)
+		self.hitbox = 50

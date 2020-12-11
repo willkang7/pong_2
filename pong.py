@@ -31,10 +31,12 @@ class Pong:
 		self.screen.onkeypress(self.paddle_a.start_move_down, 's')
 		self.screen.onkeyrelease(self.paddle_a.stop_move_up, 'w')
 		self.screen.onkeyrelease(self.paddle_a.stop_move_down, 's')
+		self.screen.onkeypress(self.paddle_a.start_long, 'r')
 		self.screen.onkeypress(self.paddle_b.start_move_up, 'Up')
 		self.screen.onkeypress(self.paddle_b.start_move_down, 'Down')
 		self.screen.onkeyrelease(self.paddle_b.stop_move_up, 'Up')
 		self.screen.onkeyrelease(self.paddle_b.stop_move_down, 'Down')
+		self.screen.onkeypress(self.paddle_b.start_long, ',')
 
 	def run_game(self):
 		"""Start the main loop for the game."""
@@ -62,18 +64,20 @@ class Pong:
 		"""Check if a paddle and ball collided."""
 		if (self.ball.xcor() < -340 and
 			self.ball.xcor() > -350 and
-			self.ball.ycor() < self.paddle_a.ycor() + 50 and
-			self.ball.ycor() > self.paddle_a.ycor() - 50):
+			self.ball.ycor() < self.paddle_a.ycor() + self.paddle_a.hitbox and
+			self.ball.ycor() > self.paddle_a.ycor() - self.paddle_a.hitbox):
 			self.ball.dx *= -1
 			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
 			self.ball.increase_speed()
+			self.paddle_a.end_long()
 		elif (self.ball.xcor() > 340 and
 			self.ball.xcor() < 350 and
-			self.ball.ycor() < self.paddle_b.ycor() + 50 and
-			self.ball.ycor() > self.paddle_b.ycor() - 50):
+			self.ball.ycor() < self.paddle_b.ycor() + self.paddle_b.hitbox and
+			self.ball.ycor() > self.paddle_b.ycor() - self.paddle_b.hitbox):
 			self.ball.dx *= -1
 			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
 			self.ball.increase_speed()
+			self.paddle_b.end_long()
 	
 	def _check_score(self):
 		"""Check if a player scored."""
