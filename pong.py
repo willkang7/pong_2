@@ -24,6 +24,7 @@ class Pong:
 		self.paddle_a = Paddle(-350, 0)
 		self.paddle_b = Paddle(350, 0)
 		self.ball = Ball()
+		self.game_active = True
 
 		# Keyboard bindings
 		self.screen.listen()
@@ -42,7 +43,7 @@ class Pong:
 
 	def run_game(self):
 		"""Start the main loop for the game."""
-		while True:
+		while self.game_active:
 			self._update_paddles()
 			self._update_ball()
 			self._check_paddle_ball_collision()
@@ -99,20 +100,29 @@ class Pong:
 
 	def _reset_round(self):
 		"""Announce point and reset positions."""
-		if self.sb.get_consecutive_points() > 2:
-			winsound.PlaySound("sounds/dominating.wav", winsound.SND_ASYNC)
-			self.announcer.announce_dominating()
+		# Check to finish the game.
+		if self.sb.score_a == 5 or self.sb.score_b == 5:
+			winsound.PlaySound("sounds/game_finished.wav", winsound.SND_ASYNC)
+			self.announcer.announce_finished()
+			time.sleep(3)
+			self.game_active = False
+		
+		# Check to finish the round.
 		else:
-			winsound.PlaySound("sounds/point_scored.wav", winsound.SND_ASYNC)
-			self.announcer.announce_point()
-		time.sleep(1)
+			if self.sb.get_consecutive_points() > 2:
+				winsound.PlaySound("sounds/dominating.wav", winsound.SND_ASYNC)
+				self.announcer.announce_dominating()
+			else:
+				winsound.PlaySound("sounds/point_scored.wav", winsound.SND_ASYNC)
+				self.announcer.announce_point()
+			time.sleep(1)
 
-		# Get ready for next round.
-		self.announcer.clear_announcement()
-		self.ball.reset_position()
-		self.ball.reset_speed()
-		self.paddle_a.reset()
-		self.paddle_b.reset()
+			# Get ready for next round.
+			self.announcer.clear_announcement()
+			self.ball.reset_position()
+			self.ball.reset_speed()
+			self.paddle_a.reset()
+			self.paddle_b.reset()
 
 
 if __name__ == '__main__':

@@ -21,6 +21,10 @@ class Announcer(Turtle):
 		"""Announce that a player is dominating."""
 		self.write("Dominating!", align="center", font=("Courier", 24, "normal"))
 
+	def announce_finished(self):
+		"""Announce that the game is finished."""
+		self.write('Game!', align="center", font=("Courier", 24, "normal"))
+
 	def clear_announcement(self):
 		"""Clear announcement."""
 		self.clear()
