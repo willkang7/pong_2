@@ -32,11 +32,13 @@ class Pong:
 		self.screen.onkeyrelease(self.paddle_a.stop_move_up, 'w')
 		self.screen.onkeyrelease(self.paddle_a.stop_move_down, 's')
 		self.screen.onkeypress(self.paddle_a.start_long, 'r')
+		self.screen.onkeypress(self.paddle_a.prime_fastball, 't')
 		self.screen.onkeypress(self.paddle_b.start_move_up, 'Up')
 		self.screen.onkeypress(self.paddle_b.start_move_down, 'Down')
 		self.screen.onkeyrelease(self.paddle_b.stop_move_up, 'Up')
 		self.screen.onkeyrelease(self.paddle_b.stop_move_down, 'Down')
 		self.screen.onkeypress(self.paddle_b.start_long, ',')
+		self.screen.onkeypress(self.paddle_b.prime_fastball, '.')
 
 	def run_game(self):
 		"""Start the main loop for the game."""
@@ -70,6 +72,8 @@ class Pong:
 			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
 			self.ball.increase_speed()
 			self.paddle_a.end_long()
+			self.paddle_b.end_fastball(self.ball)
+			self.paddle_a.start_fastball(self.ball)
 		elif (self.ball.xcor() > 340 and
 			self.ball.xcor() < 350 and
 			self.ball.ycor() < self.paddle_b.ycor() + self.paddle_b.hitbox and
@@ -78,6 +82,8 @@ class Pong:
 			winsound.PlaySound("sounds/bounce.wav", winsound.SND_ASYNC)
 			self.ball.increase_speed()
 			self.paddle_b.end_long()
+			self.paddle_a.end_fastball(self.ball)
+			self.paddle_b.start_fastball(self.ball)
 	
 	def _check_score(self):
 		"""Check if a player scored."""

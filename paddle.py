@@ -18,6 +18,7 @@ class Paddle(Turtle):
 		self.hitbox = 50
 		self.specials_left = 3
 		self.is_long = False
+		self.is_fastball = False
 
 	def update(self):
 		"""Move the paddle based on the movement flags."""
@@ -67,3 +68,20 @@ class Paddle(Turtle):
 		self.is_long = False
 		self.shapesize(stretch_wid=5, stretch_len=1)
 		self.hitbox = 50
+
+	def prime_fastball(self):
+		"""Prepare to move the ball straight forwards."""
+		if self.specials_left > 0 and self.is_fastball == False:
+			self.is_fastball = True
+			self.specials_left -= 1
+
+	def start_fastball(self, ball):
+		"""Move the ball straight forwards."""
+		if self.is_fastball == True:
+			ball.dy = 0
+
+	def end_fastball(self, ball):
+		"""Move the ball normally."""
+		if self.is_fastball == True:
+			self.is_fastball = False
+			ball.dy = ball.dx
