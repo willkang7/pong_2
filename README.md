@@ -17,6 +17,8 @@ s | down | Move paddle down
 r | , | Long paddle
 t | . | Fastball
 
+![Pong 2 Demo](images/pong_2_demo.gif)
+
 ## Contributing
 Pull requests are the best way to propose changes to the codebase
 (we use Github Flow). We actively welcome your pull requests:
